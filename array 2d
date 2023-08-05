@@ -1,0 +1,234 @@
+1.Given a square matrix mat, return the sum of the matrix diagonals.
+Only include the sum of all the elements on the primary diagonal and all the elements on the secondary diagonal that are not part of the primary diagonal.
+
+class Solution {
+    public int diagonalSum(int[][] mat) {
+        
+        int diagonalSum = 0;
+        int len = mat.length - 1;
+        
+        for(int i=0; i<mat.length; i++){
+            for(int j=0; j<mat[i].length; j++){
+                
+                if(i == j){
+                    diagonalSum += mat[i][j];
+                }
+                else if(i == (len-j)){
+                    diagonalSum += mat[i][j];
+                }
+            }
+        }
+        
+        return diagonalSum;
+    }
+}
+
+2.You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+
+You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation
+
+class Solution {
+    public void rotate(int[][] matrix) {
+        int length = matrix.length;
+        for (int i = 0; i < length / 2; i++) {
+            int[] temp = matrix[i];
+            matrix[i] = matrix[length - i - 1];
+            matrix[length - i - 1] = temp;
+        }
+        for (int i = 0; i < length - 1; i++) {
+            for (int j = i + 1; j < length; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+    }
+}
+
+3.Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+
+class Solution {
+    public int[][] generateMatrix(int n) {
+        
+        //Matrix initialization
+        int[][] matrix = new int[n][n];
+        
+        //Initialized rowBegin,rowEnd,colBegin and ColEnd
+        int rowBegin = 0, rowEnd = n-1,colBegin = 0, colEnd = n-1;
+        
+        //Element initialization which we going to add in matrix from 1 to n^2
+        int k = 1;
+        
+        while(rowBegin <= rowEnd && colBegin <= colEnd){
+            
+            //Traverse right, add elements and increment rowBegin
+            for(int i = colBegin; i <= colEnd; i++){
+                matrix[rowBegin][i] = k++;
+            }
+            rowBegin++;
+            
+            //Traverse down, add elements and decrement colEnd
+            for(int i = rowBegin; i <= rowEnd; i++){
+                matrix[i][colEnd] = k++;
+            }
+            colEnd--;
+            
+             //The only tricky part here is when we traverse left or up, we have to make sure that we have not visited those row and columns already. 
+            
+            //Make sure that row has not been visited 
+            //Traverse left, add elements and decrement rowEnd
+            if(rowBegin <= rowEnd){
+                for(int i = colEnd; i >= colBegin; i--){
+                    matrix[rowEnd][i] = k++;
+                }
+            }
+            rowEnd--;
+            
+             //Make sure that column has not been visited 
+            //Traverse up, add elements and increment colBegin
+            if(colBegin <= colEnd){
+                for(int i = rowEnd; i>= rowBegin; i--){
+                    matrix[i][colBegin] = k++;
+                }
+            }
+            colBegin++;
+            
+        }
+        
+        return matrix;
+    }
+}
+
+4. Give a N*N square matrix, return an array of its anti-diagonals
+
+public class Solution {
+    public int[][] diagonal(int[][] A) {
+        if (A.length == 0 || A.length == 1) return A;
+        int[][] result = new int[A.length * 2 - 1][];
+        initInnerArrays(result, A.length);
+        for (int i = 0; i < A.length; i++) {
+            int column = i;
+            for (int row = 0; column >= 0 ; row++, column--) {
+                result[i][row] = A[row][column];
+            }
+        }
+        int resultIndex = A.length;
+        for (int i = 1; i < A.length; i++, resultIndex++) {
+            int row = i;
+            for (int column = A.length - 1, resultInnerIndex = 0; row < A.length ; column--, row++, resultInnerIndex++) {
+                result[resultIndex][resultInnerIndex] = A[row][column];
+            }
+        }
+        return result;
+    }
+
+    private void initInnerArrays(int[][] result, int size) {
+        int outerIndex = 0;
+        for (int innerIndex = 1; innerIndex <= size; innerIndex++, outerIndex++) {
+            result[outerIndex] = new int[innerIndex];
+            result[result.length - 1 - outerIndex] = new int[innerIndex];
+        }
+    }
+}
+
+5.Given a 2D integer array nums, return all elements of nums in diagonal order as shown in the below images.
+
+class Solution {
+    public int[] findDiagonalOrder(List<List<Integer>> nums) {
+        int m = nums.size(), maxSum = 0, size = 0, index = 0;
+        List<Integer>[] map = new ArrayList[100001];
+        for (int i = 0; i < m; i++) {
+            size += nums.get(i).size();
+            for (int j = 0; j < nums.get(i).size(); j++) {
+                int sum = i + j;
+                if (map[sum] == null) map[sum] = new ArrayList<>();
+                map[sum].add(nums.get(i).get(j));
+                maxSum = Math.max(maxSum, sum);
+            }
+        }
+        int[] res = new int[size];
+        for (int i = 0; i <= maxSum; i++) {
+            List<Integer> cur = map[i];
+            for (int j = cur.size() - 1; j >= 0; j--) {
+                res[index++] = cur.get(j);
+            }
+        }
+        return res;
+    }
+}
+
+6.Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+You must do it in place
+
+public class Solution {
+    public void setZeroes(int[][] matrix) {
+        boolean firstRowZero = false;
+        boolean firstColumnZero = false;
+ 
+        //set first row and column zero or not
+        for(int i=0; i<matrix.length; i++){
+            if(matrix[i][0] == 0){
+                firstColumnZero = true;
+                break;
+            }
+        }
+ 
+        for(int i=0; i<matrix[0].length; i++){
+            if(matrix[0][i] == 0){
+                firstRowZero = true;
+                break;
+            }
+        }
+ 
+        //mark zeros on first row and column
+        for(int i=1; i<matrix.length; i++){
+            for(int j=1; j<matrix[0].length; j++){
+                if(matrix[i][j] == 0){
+                   matrix[i][0] = 0;
+                   matrix[0][j] = 0;
+                }
+            }
+        }
+ 
+        //use mark to set elements
+        for(int i=1; i<matrix.length; i++){
+            for(int j=1; j<matrix[0].length; j++){
+                if(matrix[i][0] == 0 || matrix[0][j] == 0){
+                   matrix[i][j] = 0;
+                }
+            }
+        }
+ 
+        //set first column and row
+        if(firstColumnZero){
+            for(int i=0; i<matrix.length; i++)
+                matrix[i][0] = 0;
+        }
+ 
+        if(firstRowZero){
+            for(int i=0; i<matrix[0].length; i++)
+                matrix[0][i] = 0;
+        }
+ 
+    }
+}
+
+7.Given a 2D integer array matrix, return the transpose of matrix.
+The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.
+
+class Solution {
+    public int[][] transpose(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int[][] ans = new int[n][m];
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                ans[i][j] = matrix[j][i];
+            }
+        }
+        return ans;
+    }
+}
+
+
+
+
