@@ -1,0 +1,151 @@
+
+1.
+
+class Compute {
+    
+    public int largest(int arr[], int n)
+    {
+        int largest=arr[0];
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]>largest)
+            {
+                largest=arr[i];
+            }
+        }
+       return largest; 
+    }
+}
+
+
+
+
+2.
+
+class Compute 
+{
+    static Pair getMinMax(long a[], long n)  
+    {
+        //Write your code here
+        Pair p=new Pair(-1,-1);
+        long min=Long.MAX_VALUE;
+        long max=Long.MIN_VALUE;
+        for(long j:a){
+            min=Math.min(min,j);
+            max=Math.max(max,j);
+        }
+        
+        p.first=min;
+        p.second=max;
+        return p;
+    }
+}
+
+
+
+3.
+
+class GFG
+{
+    ArrayList<Long> find(long arr[], int n, int x)
+    {
+        ArrayList<Long> res = new ArrayList<Long>();
+        long first = -1;
+        for(long i = 0; i < n; i++){
+            if(arr[(int)i] == x){
+              first = i;
+              break;
+            }
+        }
+        long second = first;
+        for(long i = first+1; i < n; i++){
+              if(arr[(int)i] == x){
+                  second = i;
+                
+              }
+        }
+        
+        res.add(first);
+        res.add(second);
+        return res;
+    }
+}
+
+
+4.
+
+class Solution{
+        
+    static int search(int arr[], int n, int x)
+    {
+        
+        // Your code here
+     for(int i =0;i<n;i++){
+         if(arr[i]==x){
+             return i;
+         }
+     }
+     return -1;
+    }
+    
+}
+
+5.
+
+class Solution {
+    int print2largest(int arr[], int n) {
+        // code here
+        int first=Integer.MIN_VALUE;
+        int second=-1;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]>first)
+            {
+                first=arr[i];
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]>second && arr[i]!=first)
+            {
+                second=arr[i];
+            }
+        }
+        return second;
+    }
+}
+
+
+6.
+
+public class Solution {
+    public int solve(ArrayList<Integer> A) {
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+
+        for (int x: A) {
+            if(x < min) { min = x;}
+            if(x > max) { max = x;}
+        }
+
+        return max+min;
+    }
+}
+
+
+
+7.
+
+class Solution {
+    public long[] findElements( long a[], long n)
+    {
+        // Your code goes here
+        long[] newArr = new long[a.length - 2];
+        Arrays.sort(a);
+        for(int i=0; i<n-2; i++){
+            newArr[i] = a[i];
+        }
+        return newArr;
+    }
+}
+
