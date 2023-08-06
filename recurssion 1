@@ -1,0 +1,99 @@
+1. The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1
+
+class Solution {
+    public int fib(int n) {
+        if(n==0)
+            return 0;
+        if (n==1)
+            return 1;
+        int a=0,b=1,c=0;
+        
+        for(int i=1;i<n;i++)
+        {
+            c=a+b;
+            a=b;
+            b=c;
+        }
+        return c;
+        
+    }
+}
+
+2. Given a number A, we need to find the sum of its digits using recursion.
+
+import java.util.Scanner;
+
+public class SumOfDigitsRecursive {
+    public static int sumOfDigits(int num) {
+        if (num == 0) {
+            return 0; // Base case: If the number is 0, the sum of digits is 0.
+        } else {
+            return num % 10 + sumOfDigits(num / 10); // Recursive call to find sum of digits
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print(" ");
+        int number = scanner.nextInt();
+        scanner.close();
+
+        int result = sumOfDigits(number);
+        System.out.println(""+result);
+    }
+}
+
+
+
+3.Write a program to find the factorial of the given number A using recursion.
+
+import java.util.Scanner;
+
+public class FactorialRecursive {
+    public static long factorial(int num) {
+        if (num == 0 || num == 1) {
+            return 1; // Base case: Factorial of 0 and 1 is 1
+        } else {
+            return num * factorial(num - 1); // Recursive call to find factorial
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("");
+        int number = scanner.nextInt();
+        scanner.close();
+
+        long result = factorial(number);
+        System.out.println("" + result);
+    }
+}
+
+
+
+4.Write a recursive function that takes a string, S, as input and prints the characters of S in reverse order.
+
+import java.util.Scanner;
+
+public class ReverseStringRecursive {
+    public static void reverseString(String str) {
+        if (str == null || str.isEmpty()) {
+            return; // Base case: if the string is empty or null, return
+        } else {
+            char lastChar = str.charAt(str.length() - 1); // Get the last character of the string
+            System.out.print(lastChar); // Print the last character
+            reverseString(str.substring(0, str.length() - 1)); // Recur on the substring without the last character
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("");
+        String inputString = scanner.nextLine();
+        scanner.close();
+
+        System.out.print("");
+        reverseString(inputString);
+    }
+}
+
